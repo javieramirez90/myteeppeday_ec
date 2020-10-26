@@ -3,7 +3,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: "AIzaSyAb4rql4rB9fGRvW5ij_7M--W3nRgERUb0",
+  apiKey: "",
   authDomain: "teepee-db-1e2b9.firebaseapp.com",
   databaseURL: "https://teepee-db-1e2b9.firebaseio.com",
   projectId: "teepee-db-1e2b9",
