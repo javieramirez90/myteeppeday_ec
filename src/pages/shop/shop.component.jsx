@@ -24,11 +24,27 @@ class ShopPage extends Component {
   componentDidMount() {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
-      const collectionsMap = await converCollectionsSnapshotToMap(snapshot);
-      updateCollections(collectionsMap);
-      this.setState({ loading: false });
-    })
+
+    // REST api call
+    // The thing with this approach is that response data is really nested and very difficult to use.
+    // So, that's why we use the subscription or promised based approach
+    // fetch('https://firestore.googleapis.com/v1/projects/teepee-db-1e2b9/databases/(default)/documents/collections')
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log("DATA", data);
+    //   updateCollections(data.documents);
+    //   this.setState({ loading: false});
+    // })
+    // .catch(err => console.log(err))
+
+    // PROMISED BASED BEFORE SUBSCRIPTION BASES
+    this.unsubscribeFromSnapshot = collectionRef.get().then(
+      async snapshot => {
+        const collectionsMap = await converCollectionsSnapshotToMap(snapshot);
+        updateCollections(collectionsMap);
+        this.setState({ loading: false });
+      }
+    )
   }
 
   render() {
